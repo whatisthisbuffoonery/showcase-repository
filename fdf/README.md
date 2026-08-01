@@ -43,6 +43,19 @@ Rotation controls (bonus feature):
 - arrow keys: translate  
 - r, g, b: toggle colour bits  
   
+### Overview of the project
+
+The .fdf files are bitmaps represented by points.
+Their values denote their elevation level, their longitude and latitude are as appears in the file.
+
+My program parses this and uses the xiaolin wu algorithm to draw lines between said points.
+A colour argument taking the form of:
+```
+[elevation],[colour in hex]
+```
+is accepted for each point.
+The bresenham algorithm is used for these points.
+  
 ### Resources  
   
 [An introductory perspective on 3d graphics for those trying out this project](https://youtu.be/qjWkNZ0SXfo)  
@@ -54,7 +67,7 @@ orthographic projection, we will not be dividing by z just yet.
 [really good explanation pt1](https://medium.com/@sepideh.92sh/part-i-how-robots-understand-space-kinematics-and-the-power-of-rotation-matrices-6b2ba5bc07be)  
 [really good explanation pt2](https://medium.com/@sepideh.92sh/part-ii-inside-rotation-matrices-axes-frames-and-coordinate-transformations-f6d0810a804a)  
 [really good explanation pt3](https://medium.com/@sepideh.92sh/part-iii-composing-rotations-euler-angles-and-roll-pitch-yaw-38aa816a5bcd)  
-[even simpler matrix usage](https://youtu.be/XkY2DOUCWMU) << this shows what order to apply the matrix: in the opposite order that you would imagine.  
+[even simpler matrix usage](https://youtu.be/XkY2DOUCWMU) << this shows what order to apply the matrix: in the opposite order I had imagined.  
   
 The above showcases how to use matrix formulas, from plugging them in to deriving them yourself. I personally wanted to go for zyx, but ended up with  
 xyz due to my code implementation. That works well enough.  
