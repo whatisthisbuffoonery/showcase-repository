@@ -33,7 +33,7 @@ char	**split_cleanup(char **ret)
 	int	i;
 
 	i = 0;
-	while (ret[i])
+	while (ret && ret[i])
 		free(ret[i++]);
 	free(ret);
 	return (NULL);

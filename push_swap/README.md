@@ -69,13 +69,48 @@ sa
 (ctrl-d)
 ```
   
-### Resources  
+### Overview of the program  
+
+The numbers are first reindexed to reduce the range of numbers while preserving their order
+
+#### for fewer than 5000 numbers
+
+Step 1, push numbers to stack b until there are 3 or less numbers left in stack a
+If there are 50 or more numbers, chunk the contents of stack b
+- stack b is partially sorted in descending order
+
+Step 2, sort the numbers in stack a
+
+Step 3, scan stack b to find the number that can be inserted into stack a using the least moves and do that
+Repeat step 3 until stack b is empty
+
+Step 4, rotate stack a so that the lowest number is at the top of the stack
+
+#### for 5000 or more numbers
+
+Step 1: determine bit_max, which is the maximum number of bits that can be meaningfully compared
+
+Step 2: find the representation for each number in binary
+
+Step 3: push all numbers that have a 0 in the lowest bit to stack b
+
+Step 4: find the longest sequence of increasing numbers starting from 0 in stack b
+
+Step 5: push numbers that have a 1 in the next bit and are not in the above sequence are pushed back to stack a
+
+Repeat steps 3 to 5 until bit_max is reached
+
+Step 6: rotate stack b the right way around and push its contents to stack a
+
+### Resources and notes  
   
 greedy insertion: (https://pure-forest.medium.com/push-swap-turk-algorithm-explained-in-6-steps-4c6650a458c0)  
 greedy insertion optimisation: toss that 'bound' integer out the window and search for candidates from either side of stack b. Automatic butterfly chunking!  
+  
 lsd radix: (https://medium.com/nerd-for-tech/push-swap-tutorial-fa746e6aba1e)  
 lsd radix keep-in-b idea: (https://github.com/hu8813/push_swap/blob/main/src/sort.c)  
+
+  
 msd radix: my idea actually. It serves as a rather lazy method of chunking that:  
-	- requires no knowledge of what the initial sample size was  
 	- does no delta calculations, almost half of the numbers are in good chunks. The other half is split between the smallest and second smallest number chunks  
 	- uses what I imagine as rather few moves to achieve what it does  

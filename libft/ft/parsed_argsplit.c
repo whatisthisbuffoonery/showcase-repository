@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsed_argsplit.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dthoo <dthoo@student.42singapore.sg>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/25 15:32:01 by dthoo             #+#    #+#             */
+/*   Updated: 2026/03/25 15:32:03 by dthoo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 int	unclosed_check(char *s)
@@ -66,6 +78,7 @@ char	**parsed_help(char **dst, char *s, char *ht)
 	return (dst);
 }
 
+//"tr a ' a '"
 char	**parsed_argsplit(char *s)
 {
 	int		i;

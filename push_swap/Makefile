@@ -24,6 +24,17 @@ $(NAME): $(OBJ) $(SHARED_OBJ) $(LIBFT_DIR)/$(LIBFT).a
 $(BONUS_NAME): $(BONUS_OBJ) $(SHARED_OBJ) $(LIBFT_DIR)/$(LIBFT).a
 	$(CC) $(CC_FLAGS) $(BONUS_OBJ) $(SHARED_OBJ) -I $(LIBFT_DIR)/includes -L $(LIBFT_DIR) -l $(LIBFT_NAME) -o $(BONUS_NAME)
 
+#if using objects, emcc wants objects compiled out of emcc
+#it will complain about libft not being a wasm thing, but it still runs
+#-v mount /thing in docker to here/..
+#-w cd back into here so the vars work
+wasm: $(SRC) $(SHARED_SRC)
+	docker run --rm \
+	-v $(PWD)/..:/thing \
+	-w /thing/$(notdir $(PWD)) \
+	emscripten/emsdk emcc \
+	$(SRC) $(SHARED_SRC) -I $(LIBFT_DIR)/includes -L $(LIBFT_DIR) -l $(LIBFT_NAME) -o $(NAME).wasm
+
 $(OBJ): %.o: %.c
 	$(CC) $(CC_FLAGS) -I $(LIBFT_DIR)/includes -c $< -o $@
 
@@ -40,7 +51,7 @@ clean:
 	rm -f $(OBJ) $(BONUS_OBJ) $(SHARED_OBJ)
 
 fclean: clean
-	rm -f $(NAME) $(BONUS_NAME)
+	rm -f $(NAME) $(BONUS_NAME) $(NAME).wasm
 
 re: fclean all
 

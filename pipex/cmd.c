@@ -6,7 +6,7 @@
 /*   By: dthoo <dthoo@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 16:18:22 by dthoo             #+#    #+#             */
-/*   Updated: 2026/02/19 16:18:22 by dthoo            ###   ########.fr       */
+/*   Updated: 2026/03/07 17:34:01 by dthoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	cmd_name(char ***cmd, char **env)
 	return (0);
 }
 
-char	*find_path(char **e, char **path)
+int	find_path(char **e, char **path)
 {
 	int				i;
 	unsigned int	len;
@@ -106,12 +106,13 @@ char	*find_path(char **e, char **path)
 		if (!ft_strncmp(e[i], prefix, len) && ft_strlen(e[i]) > len)
 		{
 			*path = &e[i][len];
-			return (*path);
+			return (0);
 		}
 		i ++;
 	}
-	errno = ENOENT;
-	return (NULL);
+	if (e)
+		errno = ENOENT;
+	return ((e != NULL));
 }
 
 int	cmd_init(char **v, int *i, char ***cmd, char **e)
@@ -124,7 +125,7 @@ int	cmd_init(char **v, int *i, char ***cmd, char **e)
 	path = NULL;
 	env = NULL;
 	errno = 0;
-	if (!cmd_strchr(v[*i]) && !find_path(e, &path))
+	if (!cmd_strchr(v[*i]) && find_path(e, &path))
 		return (oops_err(-1, v[*i]));
 	if (path)
 	{
