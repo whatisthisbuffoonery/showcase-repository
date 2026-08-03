@@ -11,6 +11,8 @@ Project structure:
 libft  
 -   gnl  
 -   ft_printf  
+fdf
 pipex
 push_swap
 minishell
+philosophers
