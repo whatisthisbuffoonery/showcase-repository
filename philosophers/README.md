@@ -63,6 +63,7 @@ I discovered that usleep and write were causing delays with just four philosophe
 For usleep, I introduced a tolerance buffer to offset its inaccuracy.
 For write, I configure a thread local buffer to be used in one write, and the write call is not bound by a mutex.
 - checking the death flag just prior to this does use a mutex.
+- an alternate print function using multiple write() calls instead of a buffer is commented out
 
 ### Resources
 
