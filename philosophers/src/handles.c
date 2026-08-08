@@ -6,7 +6,7 @@
 /*   By: dthoo <dthoo@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 18:43:36 by dthoo             #+#    #+#             */
-/*   Updated: 2026/07/28 18:43:42 by dthoo            ###   ########.fr       */
+/*   Updated: 2026/08/08 23:13:09 by dthoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_starvation(t_philo *philos, t_args *delay, int max)
 	{
 		cmp = philos[i].last_meal;
 		diff_ms = timeval_diff(curr, cmp);
-		if (!philos[i].done && diff_ms >= delay->starve)
+		if (delay->done != delay->headcount && diff_ms >= delay->starve)
 		{
 			pthread_mutex_lock(philos[i].waiter);
 			print_philo(&philos[i], delay, "died");
@@ -51,11 +51,9 @@ void	*monitor_philos(void *data)
 
 	philos = (t_philo *) data;
 	delay = philos[0].delay;
-	max = philos[0].philoid + THREAD_LOAD;
-	if (max >= delay->headcount)
-		max = delay->headcount % THREAD_LOAD;
-	else
-		max = THREAD_LOAD;
+	max = THREAD_LOAD;
+	if (philos[0].philoid + max > delay->headcount)
+		max = (delay->headcount - philos[0].philoid);
 	while (!delay->startflag)
 		continue ;
 	while (delay->startflag >= 0

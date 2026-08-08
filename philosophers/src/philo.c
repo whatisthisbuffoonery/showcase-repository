@@ -6,7 +6,7 @@
 /*   By: dthoo <dthoo@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 18:43:48 by dthoo             #+#    #+#             */
-/*   Updated: 2026/07/28 18:43:48 by dthoo            ###   ########.fr       */
+/*   Updated: 2026/08/08 23:13:32 by dthoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	philo_sleep(int duration)
 		gettimeofday(&curr, NULL);
 }
 
-void	philo_dine(t_philo *philo, t_args *delay)
+void	philo_dine(t_philo *philo, t_args *delay, int i)
 {
 	pthread_mutex_lock(&philo->forks[philo->forkid[0]]);
 	print_philo(philo, delay, "has taken a fork");
@@ -47,10 +47,13 @@ void	philo_dine(t_philo *philo, t_args *delay)
 	philo->last_meal = print_philo(philo, delay, "is eating");
 	delay->table += 1;
 	philo_sleep(delay->digest);
+	if (delay->diet_set && i >= delay->diet)
+	{
+		delay->done += 1;
+		philo->done = 1;
+	}
 	pthread_mutex_unlock(&philo->forks[philo->forkid[0]]);
-	print_philo(philo, delay, "has let go of a fork");
 	pthread_mutex_unlock(&philo->forks[philo->forkid[1]]);
-	print_philo(philo, delay, "has let go of a fork");
 	delay->forklist[philo->forkid[0]] = 0;
 	delay->forklist[philo->forkid[1]] = 0;
 	print_philo(philo, delay, "is sleeping");
@@ -78,13 +81,6 @@ int	call_waiter(t_philo *philo, t_args *delay)
 	return (granted && !delay->deathflag);
 }
 
-void	philo_done(t_philo *philo, t_args *delay)
-{
-	print_philo(philo, delay, "is done");
-	delay->done += 1;
-	philo->done = 1;
-}
-
 void	think_too_hard(t_philo *philo, t_args *delay)
 {
 	static _Thread_local int			i;
@@ -106,9 +102,8 @@ void	think_too_hard(t_philo *philo, t_args *delay)
 		was_thinking = 1;
 		if (!lock)
 			continue ;
-		philo_dine(philo, delay);
-		was_thinking = 0;
 		i += (lock && delay->diet_set);
+		philo_dine(philo, delay, i);
+		was_thinking = 0;
 	}
-	philo_done(philo, delay);
 }

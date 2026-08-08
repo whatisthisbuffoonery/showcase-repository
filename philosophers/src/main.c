@@ -85,12 +85,16 @@ int	macro_check(void)
 	if (THREAD_LOAD <= 0 || THREAD_LOAD > INT_MAX)
 	{
 		ret ++;
-		write(2, "THREAD_LOCAL needs to be a positive integer greater than zero\n", 62);
+		write(2,
+			"THREAD_LOCAL needs to be a positive integer greater than zero\n",
+			62);
 	}
 	if (SLEEP_THRESHOLD < 0 || SLEEP_THRESHOLD > INT_MAX)
 	{
 		ret ++;
-		write(2, "SLEEP_THRESHOLD cannot be a negative or overflowing integer\n", 60);
+		write(2,
+			"SLEEP_THRESHOLD cannot be a negative or overflowing integer\n",
+			60);
 	}
 	return (0);
 }
