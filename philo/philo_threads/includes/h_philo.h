@@ -6,7 +6,7 @@
 /*   By: dthoo <dthoo@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/23 18:59:28 by dthoo             #+#    #+#             */
-/*   Updated: 2026/07/23 18:59:58 by dthoo            ###   ########.fr       */
+/*   Updated: 2026/08/13 16:35:59 by dthoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 #  define BUFLEN 50
 # endif
 
-# ifndef SLEEPTHRESHOLD
+# ifndef SLEEP_THRESHOLD
 #  define SLEEP_THRESHOLD 40
 # endif
 

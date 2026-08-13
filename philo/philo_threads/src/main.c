@@ -6,7 +6,7 @@
 /*   By: dthoo <dthoo@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 18:43:47 by dthoo             #+#    #+#             */
-/*   Updated: 2026/07/28 18:43:47 by dthoo            ###   ########.fr       */
+/*   Updated: 2026/08/13 16:57:52 by dthoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,15 +96,11 @@ int	macro_check(void)
 			"SLEEP_THRESHOLD cannot be a negative or overflowing integer\n",
 			60);
 	}
-	return (0);
+	if (ret)
+		write(2, "\n\naborting simulation\n", 23);
+	return (ret);
 }
 
-//delay has like 5 timevals
-//start can be 1, 0, -1
-//being stuck with blocking mutex lock means:
-//we have to use main thread to update deathflag and print death message
-//so the philos do not check for starvation
-//usleep 9000
 int	main(int c, char **v)
 {
 	t_args		delay;
@@ -116,6 +112,7 @@ int	main(int c, char **v)
 	threads = NULL;
 	philos = NULL;
 	delay.startflag = 0;
+	delay.forklist = NULL;
 	if (macro_check() || arg_check(&delay, c, v)
 		|| init_mutexes(&mutexes, &delay))
 	{

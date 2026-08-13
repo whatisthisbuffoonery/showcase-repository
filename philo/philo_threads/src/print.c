@@ -12,32 +12,6 @@
 
 #include "h_philo.h"
 
-/*
-struct timeval	print_philo(t_philo *philo, t_args *delay, char *msg)
-{
-	static _Thread_local struct timeval	display;
-	static _Thread_local struct timeval	src;
-	static _Thread_local int			ms;
-
-	gettimeofday(&display, NULL);
-	src = philo->last_meal;
-	ms = timeval_diff(display, delay->start);
-	pthread_mutex_lock(philo->print);
-	if (!((msg[0] != 'd' && timeval_diff(display, src) >= delay->starve)
-		|| delay->deathflag))
-	{
-		ft_putnbr(ms);
-		ft_putchar(' ');
-		ft_putnbr(philo->philoid + 1);
-		ft_putchar(' ');
-		ft_putstr(msg);
-		ft_putchar('\n');
-	}
-	pthread_mutex_unlock(philo->print);
-	return (display);
-}
-*/
-
 //mutex stays locked on death
 int	check_death(t_philo *philo, t_args *delay, char *msg)
 {
@@ -96,6 +70,3 @@ struct timeval	print_philo(t_philo *philo, t_args *delay, char *msg)
 		pthread_mutex_unlock(philo->print);
 	return (display);
 }
-
-//I will actually make up my mind on cmp funcs after making bad ones fmllll
-//move curr back to local

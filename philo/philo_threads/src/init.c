@@ -6,7 +6,7 @@
 /*   By: dthoo <dthoo@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 18:43:46 by dthoo             #+#    #+#             */
-/*   Updated: 2026/07/28 18:43:46 by dthoo            ###   ########.fr       */
+/*   Updated: 2026/08/13 22:25:59 by dthoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	start_timeval(t_args *delay, t_philo *philos)
 	return (1);
 }
 
-//get run func to set its own forkid
 int	init_philo(
 		t_philo **philos,
 		pthread_t **threads,
@@ -50,6 +49,7 @@ int	init_philo(
 		(*philos)[i].philoid = i;
 		if (pthread_create(&(*threads)[i], NULL, run, &(*philos)[i]))
 		{
+			delay->startflag = -1;
 			while (i-- > 0)
 				pthread_join((*threads)[i], NULL);
 			free(*threads);

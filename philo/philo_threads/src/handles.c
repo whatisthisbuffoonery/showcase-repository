@@ -40,8 +40,6 @@ int	check_starvation(t_philo *philos, t_args *delay, int max)
 	return (delay->starve - max_ms);
 }
 
-//each thread gets a different philo
-//there was a waiter mutex for starvation
 void	*monitor_philos(void *data)
 {
 	static _Thread_local t_philo	*philos;

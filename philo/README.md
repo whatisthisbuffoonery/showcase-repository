@@ -7,11 +7,12 @@
 This program simulates the dining philosopher problem:
 
 A number of philosophers sit a round table.
-The same number of chopsticks lay in between each philosopher.
-A philosopher has to grab the chopsticks on both his left and right to start eating.
+The same number of forks are on the table.
+One fork lays in between each philosopher.
+A philosopher has to grab the forks on both his left and right to start eating.
 A philosopher will go to sleep after they have finished eating.
 A philosopher will die if they do not eat in time.
-The philosophers cannot communicate between themselves.
+The philosophers do not know anything about each other.
 
 The philosophers should avoid dying.
 
